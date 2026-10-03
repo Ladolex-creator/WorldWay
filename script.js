@@ -13,34 +13,22 @@ worldwayForm.addEventListener("submit", async function(event) {
 
     formMessage.textContent = "";
 
-    const formData = {
-
-        name: document.getElementById("name").value,
-        email: document.getElementById("email").value,
-        phone: document.getElementById("phone").value,
-        country: document.getElementById("country").value,
-        interest: document.getElementById("interest").value,
-        message: document.getElementById("message").value
-
-    };
+    const formData = new FormData(worldwayForm);
 
     try {
 
-        const response = await fetch("/api/apply", {
+        const response = await fetch(
+            "https://formspree.io/f/mwlpgawn",
+            {
+                method: "POST",
+                body: formData,
+                headers: {
+                    "Accept": "application/json"
+                }
+            }
+        );
 
-            method: "POST",
-
-            headers: {
-                "Content-Type": "application/json"
-            },
-
-            body: JSON.stringify(formData)
-
-        });
-
-        const result = await response.json();
-
-        if (result.success) {
+        if (response.ok) {
 
             formMessage.textContent =
                 "Application received successfully!";
@@ -49,8 +37,12 @@ worldwayForm.addEventListener("submit", async function(event) {
 
         } else {
 
+            const result = await response.json();
+
             formMessage.textContent =
-                result.message || "Something went wrong.";
+                result.errors
+                    ? result.errors.map(error => error.message).join(", ")
+                    : "Something went wrong. Please try again.";
 
         }
 
