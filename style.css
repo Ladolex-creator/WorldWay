@@ -627,3 +627,33 @@ footer p {
         letter-spacing: -2px;
     }
 }
+
+.whatsapp-button {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    z-index: 9999;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 14px 22px;
+
+    background: #25D366;
+    color: white;
+
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+
+    border-radius: 50px;
+
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.2);
+
+    transition: transform 0.2s ease;
+}
+
+.whatsapp-button:hover {
+    transform: scale(1.05);
+}
